@@ -16,12 +16,17 @@
 </head>
 <body>
 
-  <iframe id="yourIframeID"></iframe>
-
   <script>
     const url = "https://bean.com";
 
   navigator.serviceWorker.register("/sw.js", { scope: "/" }).then(() => {
+var win = window.open();
+win.document.style.height = "100%"
+var embed = win.document.createElement("iframe");
+embed.src = location.origin + __uv$config.prefix + __uv$config.encodeUrl(url);
+embed.style.width = "100%";
+embed.style.height = "100vw";
+win.document.body.appendChild(embed);
     document.getElementById("yourIframeID").src = __uv$config.prefix + __uv$config.encodeUrl(url);
   }).catch(e => {
     console.error("Service worker registration failed:", e.message);
